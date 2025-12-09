@@ -7,6 +7,8 @@ import com.info.moodtrack.model.Usuario;
 
 import java.util.List;
 
+import java.util.UUID;
+
 public final class UsuarioMapper {
     private UsuarioMapper() {}
 
