@@ -160,29 +160,28 @@ A continuación se detallan los endpoints disponibles para gestionar usuarios, h
   # Nota: Reemplaza "c33b6a38-695a-4286-9883-ef4172arke83" con un ID de usuario válido de tu base de datos.
   curl -X POST http://localhost:8080/api/v1/entrada-diaria \
   -H "Content-Type: application/json" \
-  -d 
-  {
-      "usuarioId": "c33b6a38-695a-4286-9883-ef4172arke83",
+  -d '{
+      "usuarioId": "11111111-1111-1111-1111-111111111111",
       "fecha": "2025-11-29",
       "reflexion": "Hoy fue un día productivo.",
       "emocion": "Feliz",
       "habitosIds": [1]
-  }
+  }'
   ```
 
 - **Respuesta Exitosa (200 OK):**
 
   ```json
   {
-      "id": 1,
+      "id": 21,
       "fecha": "2025-11-29",
       "reflexion": "Hoy fue un día productivo.",
       "emocion": "Feliz",
-      "usuarioId": "c33b6a38-695a-4286-9883-ef4172arke83",
+      "usuarioId": "11111111-1111-1111-1111-111111111111",
       "habitos": [
           {
               "id": 1,
-              "descripcion": "Leer 20 páginas"
+              "descripcion": "Caminar 30 minutos"
           }
       ]
   }
@@ -190,11 +189,108 @@ A continuación se detallan los endpoints disponibles para gestionar usuarios, h
 
 ![postEntrada](img/postEntrada.png)
 
+#### 2. Listar Entradas por Usuario
+
+- **Método:** `GET`
+- **URL:** `/api/v1/entrada-diaria/usuario/{usuarioId}`
+- **Descripción:** Devuelve una lista de todas las entradas diarias para un usuario específico.
+- **Parámetros de URL:**
+  - `usuarioId` (obligatorio): El ID del usuario.
+- **Parámetros de Query:**
+  - `desde` (opcional): La fecha de inicio del rango (formato `YYYY-MM-DD`).
+  - `hasta` (opcional): La fecha de fin del rango (formato `YYYY-MM-DD`).
+- **Comando `curl`:**
+
+  ```bash
+  # Reemplaza {usuarioId} con un ID de usuario válido
+  curl http://localhost:8080/api/v1/entrada-diaria/usuario/11111111-1111-1111-1111-111111111111
+  ```
+- **Respuesta Exitosa (200 OK):**
+
+  ```json
+  [
+      {
+          "id": 1,
+          "fecha": "2025-01-01",
+          "reflexion": "Arrancando el año con muchas ganas.",
+          "emocion": "FELIZ",
+          "usuarioId": "11111111-1111-1111-1111-111111111111",
+          "habitos": [
+              {
+                  "id": 1,
+                  "descripcion": "Caminar 30 minutos"
+              },
+              {
+                  "id": 4,
+                  "descripcion": "Beber 2 litros de agua"
+              }
+          ]
+      },
+      {
+          "id": 11,
+          "fecha": "2025-01-11",
+          "reflexion": "Salí a caminar por la ciudad.",
+          "emocion": "RELAX",
+          "usuarioId": "11111111-1111-1111-1111-111111111111",
+          "habitos": [
+              {
+                  "id": 1,
+                  "descripcion": "Caminar 30 minutos"
+              },
+              {
+                  "id": 8,
+                  "descripcion": "Hacer una buena acción"
+              }
+          ]
+      }
+  ]
+  ```
+
+#### 3. Listar Entradas por Usuario y Rango de Fechas
+
+- **Método:** `GET`
+- **URL:** `/api/v1/entrada-diaria/usuario/{usuarioId}?desde=YYYY-MM-DD&hasta=YYYY-MM-DD`
+- **Descripción:** Devuelve una lista de entradas diarias para un usuario específico dentro de un rango de fechas.
+- **Parámetros de URL:**
+  - `usuarioId` (obligatorio): El ID del usuario.
+- **Parámetros de Query:**
+  - `desde` (obligatorio): La fecha de inicio del rango (formato `YYYY-MM-DD`).
+  - `hasta` (obligatorio): La fecha de fin del rango (formato `YYYY-MM-DD`).
+- **Comando `curl`:**
+
+  ```bash
+  # Reemplaza {usuarioId} con un ID de usuario válido y ajusta las fechas
+  curl "http://localhost:8080/api/v1/entrada-diaria/usuario/11111111-1111-1111-1111-111111111111?desde=2025-01-01&hasta=2025-01-10"
+  ```
+- **Respuesta Exitosa (200 OK):**
+
+  ```json
+  [
+      {
+          "id": 1,
+          "fecha": "2025-01-01",
+          "reflexion": "Arrancando el año con muchas ganas.",
+          "emocion": "FELIZ",
+          "usuarioId": "11111111-1111-1111-1111-111111111111",
+          "habitos": [
+              {
+                  "id": 1,
+                  "descripcion": "Caminar 30 minutos"
+              },
+              {
+                  "id": 4,
+                  "descripcion": "Beber 2 litros de agua"
+              }
+          ]
+      }
+  ]
+  ```
+
 ---
 
 ### Usuarios
 
-#### Listar todos los Usuarios
+#### 1. Listar todos los Usuarios
 
 - **Método:** `GET`
 - **URL:** `/api/v1/usuarios`
@@ -207,12 +303,28 @@ A continuación se detallan los endpoints disponibles para gestionar usuarios, h
 - **Respuesta Exitosa (200 OK):**
   ```json
   [
-      {
-          "id": "c33b6a38-695a-4286-9883-ef4172arke83",
-          "name": "Usuario de Ejemplo",
-          "email": "ejemplo@correo.com",
-          "perfilUsuarioDto": null
-      }
+    {
+        "id": "11111111-1111-1111-1111-111111111111",
+        "name": "Ana",
+        "email": "ana@example.com",
+        "perfilUsuarioDto": {
+            "id": 1,
+            "bio": "Apasionado por la tecnología y el café.",
+            "colorFavorito": "AZUL",
+            "fraseDelDia": "Cada día es una nueva oportunidad."
+        }
+    },
+    {
+        "id": "22222222-2222-2222-2222-222222222222",
+        "name": "Bruno",
+        "email": "bruno@example.com",
+        "perfilUsuarioDto": {
+            "id": 2,
+            "bio": "Amante de los libros y la tranquilidad.",
+            "colorFavorito": "VERDE",
+            "fraseDelDia": "Leer es soñar con los ojos abiertos."
+        }
+    }
   ]
   ```
 
