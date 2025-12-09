@@ -16,7 +16,7 @@ import lombok.Setter;
 public class UsuarioCreateDto {
 
     @NotBlank(message = "El nombre del usuario no puede ser vacio")
-    private String nombre;
+    private String name;
 
     @NotBlank(message = "El email del usuario no puede ser vacio")
     private String email;

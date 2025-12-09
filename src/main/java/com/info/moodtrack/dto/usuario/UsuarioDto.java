@@ -14,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class UsuarioDto {
     private UUID id;
-    private String nombre;
+    private String name;
     private String email;
     private PerfilUsuarioDto perfilUsuarioDto;
 

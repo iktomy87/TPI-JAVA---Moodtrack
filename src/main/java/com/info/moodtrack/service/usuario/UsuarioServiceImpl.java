@@ -64,7 +64,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
             //2. Setear campo a campo para actualizarlo
             Usuario usuarioEntity = usuario.get();
-            usuarioEntity.setNombre( usuarioCreateDto.getNombre() );
+            usuarioEntity.setName( usuarioCreateDto.getName() );
             usuarioEntity.setEmail( usuarioCreateDto.getEmail() );
 
             PerfilUsuario perfilUsuario = usuarioEntity.getPerfil();

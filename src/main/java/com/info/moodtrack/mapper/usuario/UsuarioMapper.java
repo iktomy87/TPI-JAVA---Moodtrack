@@ -16,7 +16,7 @@ public final class UsuarioMapper {
 
         UsuarioDto usuarioDto = new UsuarioDto();
         usuarioDto.setId(usuario.getId());
-        usuarioDto.setNombre(usuario.getNombre());
+        usuarioDto.setName(usuario.getName());
         usuarioDto.setEmail(usuario.getEmail());
         usuarioDto.setPerfilUsuarioDto(PerfilMapper.toDto(usuario.getPerfil()));
         return usuarioDto;
@@ -34,8 +34,9 @@ public final class UsuarioMapper {
         if(usuarioCreateDto == null) return null;
 
         Usuario usuario = new Usuario();
+        usuario.setId( java.util.UUID.randomUUID() );
         usuario.setEmail( usuarioCreateDto.getEmail() );
-        usuario.setNombre( usuarioCreateDto.getNombre() );
+        usuario.setName( usuarioCreateDto.getName() );
         usuario.setPerfil( PerfilMapper.toEntity( usuarioCreateDto.getPerfilUsuarioDto() ) );
         usuario.setEntradasDiarias( List.of() );
         return usuario;

@@ -209,7 +209,7 @@ A continuación se detallan los endpoints disponibles para gestionar usuarios, h
   [
       {
           "id": "c33b6a38-695a-4286-9883-ef4172arke83",
-          "nombre": "Usuario de Ejemplo",
+          "name": "Usuario de Ejemplo",
           "email": "ejemplo@correo.com",
           "perfilUsuarioDto": null
       }
@@ -225,7 +225,7 @@ A continuación se detallan los endpoints disponibles para gestionar usuarios, h
 
   ```json
   {
-      "nombre": "Nuevo Usuario",
+      "name": "Nuevo Usuario",
       "email": "nuevo.usuario@example.com",
       "perfilUsuarioDto": {
           "bio": "Mi biografía de prueba",
@@ -241,16 +241,15 @@ A continuación se detallan los endpoints disponibles para gestionar usuarios, h
   ```bash
   curl -X POST http://localhost:8080/api/v1/usuarios \
   -H "Content-Type: application/json" \
-  -d 
-  {
-      "nombre": "Nuevo Usuario",
+  -d '{
+      "name": "Nuevo Usuario",
       "email": "nuevo.usuario@example.com",
       "perfilUsuarioDto": {
           "bio": "Mi biografía de prueba",
           "colorFavorito": "Azul",
           "fraseDelDia": "¡A codificar!"
       }
-  }
+  }'
   ```
 
 - **Respuesta Exitosa (200 OK):**
@@ -258,7 +257,7 @@ A continuación se detallan los endpoints disponibles para gestionar usuarios, h
   ```json
   {
       "id": "UN_UUID_GENERADO",
-      "nombre": "Nuevo Usuario",
+      "name": "Nuevo Usuario",
       "email": "nuevo.usuario@example.com",
       "perfilUsuarioDto": {
           "id": 1,
@@ -270,3 +269,85 @@ A continuación se detallan los endpoints disponibles para gestionar usuarios, h
   ```
 
 ![postUsuario](img/postUsuario.png)
+
+#### 3. Obtener Usuario por ID
+
+- **Método:** `GET`
+- **URL:** `/api/v1/usuarios/{id}`
+- **Descripción:** Devuelve un usuario específico por su ID.
+- **Comando `curl`:**
+
+  ```bash
+  # Reemplaza {id} con un ID de usuario válido
+  curl http://localhost:8080/api/v1/usuarios/11111111-1111-1111-1111-111111111111
+  ```
+- **Respuesta Exitosa (200 OK):**
+  ```json
+  {
+      "id": "11111111-1111-1111-1111-111111111111",
+      "name": "Ana",
+      "email": "ana@example.com",
+      "perfilUsuarioDto": {
+          "id": 1,
+          "bio": "Apasionado por la tecnología y el café.",
+          "colorFavorito": "AZUL",
+          "fraseDelDia": "Cada día es una nueva oportunidad."
+      }
+  }
+  ```
+- **Respuesta No Encontrado (404 Not Found):** Si el ID del usuario no existe.
+
+#### 4. Actualizar Usuario
+
+- **Método:** `PUT`
+- **URL:** `/api/v1/usuarios/{id}`
+- **Descripción:** Actualiza la información de un usuario existente.
+- **Body (JSON):**
+
+  ```json
+  {
+      "name": "Ana Actualizada",
+      "email": "ana.actualizada@example.com",
+      "perfilUsuarioDto": {
+          "bio": "Nueva biografía",
+          "colorFavorito": "AMARILLO",
+          "fraseDelDia": "¡Siempre aprendiendo!"
+      }
+  }
+  ```
+  *Nota: `perfilUsuarioDto` es opcional para la actualización. Si se incluye, se actualizará el perfil existente o se creará uno nuevo si no lo tenía.*
+
+- **Comando `curl`:**
+
+  ```bash
+  # Reemplaza {id} con el ID del usuario a actualizar
+  curl -X PUT http://localhost:8080/api/v1/usuarios/11111111-1111-1111-1111-111111111111 \
+  -H "Content-Type: application/json" \
+  -d '{
+      "name": "Ana Actualizada",
+      "email": "ana.actualizada@example.com",
+      "perfilUsuarioDto": {
+          "bio": "Nueva biografía",
+          "colorFavorito": "AMARILLO",
+          "fraseDelDia": "¡Siempre aprendiendo!"
+      }
+  }'
+  ```
+
+- **Respuesta Exitosa (200 OK):** Devuelve el usuario actualizado.
+- **Respuesta No Encontrado (404 Not Found):** Si el ID del usuario no existe.
+- **Respuesta Bad Request (400 Bad Request):** Si el email ya está en uso por otro usuario.
+
+#### 5. Eliminar Usuario
+
+- **Método:** `DELETE`
+- **URL:** `/api/v1/usuarios/{id}`
+- **Descripción:** Elimina un usuario por su ID.
+- **Comando `curl`:**
+
+  ```bash
+  # Reemplaza {id} con el ID del usuario a eliminar
+  curl -X DELETE http://localhost:8080/api/v1/usuarios/11111111-1111-1111-1111-111111111111
+  ```
+- **Respuesta Exitosa (204 No Content):** El usuario fue eliminado correctamente.
+- **Respuesta No Encontrado (404 Not Found):** Si el ID del usuario no existe.

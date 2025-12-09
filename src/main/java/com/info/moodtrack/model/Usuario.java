@@ -9,11 +9,10 @@ import java.util.UUID;
 public class Usuario {
 
     @Id
-    @GeneratedValue
     private UUID id;
 
     @Column(name = "name", nullable = false, length = 50)
-    private String nombre;
+    private String name;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -26,9 +25,9 @@ public class Usuario {
 
     public Usuario() {}
 
-    public Usuario(UUID id, String nombre, String email, PerfilUsuario perfil, List<EntradaDiaria> entradasDiarias) {
+    public Usuario(UUID id, String name, String email, PerfilUsuario perfil, List<EntradaDiaria> entradasDiarias) {
         this.id = id;
-        this.nombre = nombre;
+        this.name = name;
         this.email = email;
         this.perfil = perfil;
         this.entradasDiarias = entradasDiarias;
@@ -42,12 +41,12 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
